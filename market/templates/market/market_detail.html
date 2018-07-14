@@ -1,0 +1,15 @@
+{% extends 'market/base.html' %}
+
+{% block content %}
+    <div class="post">
+        {% if researchrequest.published_date %}
+            <div class="date">
+                {{ researchrequest.published_date }}
+            </div>
+        {% endif %}
+        <h1>{{ researchrequest.title }}</h1>
+        <p>Min= {{ researchrequest.min_par_nr }} </p>
+        <p>Max= {{ researchrequest.max_part_nr }} </p>
+        <p>{{ researchrequest.hypo|linebreaksbr }}</p>
+    </div>
+{% endblock %}

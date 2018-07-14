@@ -1,15 +1,13 @@
 {% extends 'market/base.html' %}
 
 {% block content %}
-    {% for request in requests %}
+    {% for researchrequest in researchrequests %}
         <div class="post">
             <div class="date">
-                {{ request.published_date }}
+                {{ researchrequest.published_date }}
             </div>
-            <h1><a href="">{{ request.title }}</a></h1>
-            <p>{{ request.hypo|linebreaksbr }}</p>
-            <p>Min= {{ request.min_part_nr }} </p>
-            <p>Max= {{ request.max_part_nr }} </p>
+            <a href="{% url 'market_detail' pk=researchrequest.pk %}">{{ researchrequest.title }}</a>
+            <p>{{ researchrequest.hypo|linebreaksbr }}</p>
         </div>
     {% endfor %}
 {% endblock %}

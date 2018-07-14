@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Request, Participant
+from .models import ResearchRequest, ResearchParticipant
 
-admin.site.register(Request)
-admin.site.register(Participant)
+admin.site.register(ResearchRequest)
+admin.site.register(ResearchParticipant)
 
