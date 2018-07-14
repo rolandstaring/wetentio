@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
+from django.shortcuts import redirect
 from .forms import PostForm
 from .models import ResearchRequest
 
@@ -13,11 +14,11 @@ def market_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('market_detail', pk=market.pk)
+            researchrequest = form.save(commit=False)
+            researchrequest.author = request.user
+            researchrequest.published_date = timezone.now()
+            researchrequest.save()
+            return redirect('market_detail', pk=researchrequest.pk)
     else:
         form = PostForm()
     return render(request, 'market/market_edit.html', {'form': form})
@@ -25,7 +26,7 @@ def market_new(request):
 def market_edit(request, pk):
 	researchrequest = get_object_or_404(ResearchRequest, pk=pk)
 	if request.method == "POST":
-		form = PostForm(request.POST, instance=post)
+		form = PostForm(request.POST, instance=researchrequest)
 		if form.is_valid():
 			researchrequest = form.save(commit=False)
 			researchrequest.author = request.user

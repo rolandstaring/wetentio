@@ -8,8 +8,8 @@ class ResearchRequest(models.Model):
 	title = models.CharField(max_length=200)
 	hypo = models.TextField()
 	max_part_nr = models.IntegerField()
-	min_par_nr = models.IntegerField()
-	end_date = models.DateTimeField(blank=True, null=True)
+	min_part_nr = models.IntegerField()
+	end_date = models.DateField(blank=True, null=True)
 	created_date = models.DateTimeField(
 			default=timezone.now)
 	published_date = models.DateTimeField(

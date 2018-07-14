@@ -2,12 +2,12 @@
 
 {% block content %}
     {% for researchrequest in researchrequests %}
-        <div class="post">
-            <div class="date">
-                {{ researchrequest.published_date }}
-            </div>
+        <div>
+           
             <a href="{% url 'market_detail' pk=researchrequest.pk %}">{{ researchrequest.title }}</a>
-            <p>{{ researchrequest.hypo|linebreaksbr }}</p>
+             <div class="date">
+                {{ researchrequest.published_date }}
+            </div><br>
         </div>
     {% endfor %}
 {% endblock %}
