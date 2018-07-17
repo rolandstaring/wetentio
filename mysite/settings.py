@@ -25,7 +25,7 @@ SECRET_KEY = 'v11h8_*ll5m5vp6vc9)u_*+^%kitejmt@oz$#$ll7n$5b_ejm='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ec2-13-58-240-24.us-east-2.compute.amazonaws.com']
+ALLOWED_HOSTS = ['ec2-18-222-25-172.us-east-2.compute.amazonaws.com']
 
 
 # Application definition
@@ -51,6 +51,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mysite.urls'
+
+LOGIN_REDIRECT_URL = 'market_list'
+LOGOUT_REDIRECT_URL = 'market_list'
 
 TEMPLATES = [
     {

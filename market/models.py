@@ -26,10 +26,12 @@ class ResearchParticipant(models.Model):
 	author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 	researchrequest = models.ForeignKey(ResearchRequest, on_delete=models.CASCADE)
 	email = models.CharField("Email adres", max_length=30)
+	motivation = models.TextField(default="i love to be a part of your question")
+	
 	
 	def publish(self):
 		self.published_date = timezone.now()
 		self.save()
 	
 	def __str__(self):
-		return self.title
+		return self.email

@@ -6,7 +6,8 @@
            
             <a href="{% url 'market_detail' pk=researchrequest.pk %}">{{ researchrequest.title }}</a>
              <div class="date">
-                {{ researchrequest.published_date }}
+                {{ researchrequest.published_date }} <br>
+  	             Reqeust by: {{ researchrequest.author }}
             </div><br>
         </div>
     {% endfor %}

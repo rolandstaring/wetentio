@@ -8,8 +8,16 @@
             </div>
         {% endif %}
         <h1>{{ researchrequest.title }}</h1>
-        <p>Min= {{ researchrequest.min_part_nr }} </p>
-        <p>Max= {{ researchrequest.max_part_nr }} </p>
+		<h5>{{ researchrequest.author }}</h5>
+		
+		<h3>Hypothese</h3>
         <p>{{ researchrequest.hypo|linebreaksbr }}</p>
+        <h3> Participanten  </h3>
+        <p>
+        {% for researchparticipant in researchparticipants %}
+        	{{ researchparticipant.author }} <br>
+        {% endfor %} </p>
+        
+        <a href="{% url 'participant_add' pk=researchrequest.pk %}"> add participant</a>
     </div>
 {% endblock %}
