@@ -1,0 +1,48 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Roland Health Hub</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="{% static 'css/market.css' %}">
+  		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    	<script type="text/javascript">
+    	google.charts.load('current', {'packages':['timeline']});
+    	google.charts.setOnLoadCallback(drawChart);
+    	
+    	function drawChart() {
+    	
+      		var djangoData = {{ data_time_in_bed | safe }};	
+      		
+      	
+      		var data = new google.visualization.DataTable();
+      		data.addColumn('string', 'Date');
+      		data.addColumn('date', 'start' );
+      		data.addColumn('date', 'end' );
+      		
+      	 
+      		
+      		data.addRows(djangoData);
+      
+      		var options = {
+      			height: 600,
+      			timeline: { singleColor: '#8d8' }
+      			 };
+   			
+   			var chart = new google.visualization.Timeline(document.getElementById('chart_div'));
+
+      		chart.draw(data, options);
+    		}
+     </script>
+	</head>
+<body>
+	<div class="page-header">
+    	{% if user.is_authenticated %}
+		<a href="{% url 'logout' %}" class="top-menu">logout {{ user.get_username }}</a>
+		{% else %}
+		<a href="{% url 'login' %}" class="top-menu">Login </a>
+		{% endif %}
+        <h1><a href="/">Roland Health Hub</a></h1>
+    </div>
+    <div id='chart_div'> </div>		
+</body>

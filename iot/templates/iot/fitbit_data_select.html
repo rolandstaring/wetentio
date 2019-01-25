@@ -1,0 +1,24 @@
+{% extends 'iot/base.html' %}
+
+{% block content %}
+
+ <form action="{% url 'fitbit_data_select_result' %}" method="post">{% csrf_token %}
+ 		Toon variabele:
+ 		<select name="column">
+ 		{% for column in columns %}
+    	<option value="{{column}}" name="column">{{column}}</option>
+  		
+  		{% endfor %}
+  		</select>
+  		<br>
+  		Toon aantal dagen:
+  		<select name="period">
+  		<option value="7" >7</option>
+  		<option value="30" >30</option>
+  		<option value="90" >90</option>
+  		</select>
+  		<br>
+  	<input type="submit">
+	</form>
+	
+{% endblock %}

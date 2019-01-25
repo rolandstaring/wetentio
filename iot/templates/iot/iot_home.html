@@ -1,0 +1,32 @@
+{% extends 'iot/base.html' %}
+
+{% block content %}
+				{% if user.is_authenticated %}
+				
+				
+				<div class="col-md-4">
+				<h2> Add Data </h2>
+				<p><a href="{% url 'betablock' %}" > BetaBlock </a></p>
+				<p><a href="{% url 'feet' %}" > Feet </a></p>
+				<p><a href="{% url 'yoga' %}"> Yoga </a></p>		
+				<br>
+				</div>
+				
+        		<div class="col-md-4">
+        		<h2> Import Data </h2>
+        		<p><a href="{% url 'fitbit_get' %}"> Fitbit get access </a></p>
+				<p><a href="{% url 'fitbit_get_data' %}"> Fitbit get data </a></p>
+				<p><a href="{% url 'hoofdpijn_get' %}"> Hoofdpijn get data </a></p>
+				
+				
+				<h2> Analyse Data </h2>
+				<p><a href="{% url 'iot_status' %}"> Medicine usage </a></p>
+				<p><a href="{% url 'hoofdpijn_data_select_result' %}"> Hoofdpijn show chart </a></p>
+				<p><a href="{% url 'fitbit_data_select_result' %}"> Fitbit select chart </a> 
+				<p><a href="{% url 'fitbit_time_in_bed' %}"> Fitbit time in bed </a> 
+				</div>
+				
+				{{ python_call }}
+				{% endif %}
+
+{% endblock %}

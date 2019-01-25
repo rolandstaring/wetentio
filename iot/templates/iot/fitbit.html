@@ -1,0 +1,14 @@
+{% extends 'iot/base.html' %}
+
+{% block content %}
+
+	<a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=227XZY&redirect_uri=http%3A%2F%2F127.0.0.1%3A8080%2F&scope=activity%20heartrate%20sleep&expires_in=604800" target="_blank">request your code at fitbit</a>
+    
+    <form action="{% url 'fitbit_get_access' %}" method="post">{% csrf_token %}
+    	Code:<br>
+  		<input type="text" name="code">
+    <button type="submit"> Get Access Keys </button>
+  	</form>
+  	
+  
+{% endblock %}

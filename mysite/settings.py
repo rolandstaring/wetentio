@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'base',
     'market',
     'iot',
 ]
@@ -53,8 +54,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mysite.urls'
 
-LOGIN_REDIRECT_URL = 'market_list'
-LOGOUT_REDIRECT_URL = 'market_list'
+LOGIN_REDIRECT_URL = 'base_home'
+LOGOUT_REDIRECT_URL = 'base_home'
 
 TEMPLATES = [
     {

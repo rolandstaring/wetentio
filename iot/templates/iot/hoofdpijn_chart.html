@@ -1,0 +1,130 @@
+{% load staticfiles %}
+<html>
+	<head>
+		<title>Roland Health Hub</title>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="{% static 'css/market.css' %}">
+		
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript">
+			google.charts.load("current", {'packages':['corechart']});
+			google.charts.setOnLoadCallback(drawHistoChart);
+			google.charts.load("current", {packages:['corechart']});
+			google.charts.setOnLoadCallback(drawBarChartDay);
+			google.charts.load("current", {packages:['corechart']});
+			google.charts.setOnLoadCallback(drawBarChartMonth);
+			google.charts.load("current", {packages:['corechart']});
+			google.charts.setOnLoadCallback(drawBarChartYear);
+			
+		function drawBarChartDay() {
+		var djangoData = {{ day_group_data |safe }};	
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Days of the week');
+		data.addColumn('number', 'total count');
+		data.addRows(djangoData);
+		
+		var options = {
+			title: "Headaches spread over weekdays",
+			width: 600,
+			height: 400,
+			legend: { position: "none" },
+			};
+		
+		var chart = new google.visualization.ColumnChart(document.getElementById("bar_div_day"));
+		chart.draw(data, options);
+		}
+		
+		function drawBarChartMonth() {
+		var djangoData = {{ month_group_data |safe }};	
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Months');
+		data.addColumn('number', 'total count');
+		data.addRows(djangoData);
+		
+		var options = {
+			title: "Headaches spread over months",
+			width: 600,
+			height: 400,
+			legend: { position: "none" },
+			};
+		
+		var chart = new google.visualization.ColumnChart(document.getElementById("bar_div_months"));
+		chart.draw(data, options);
+		}
+		
+		function drawBarChartYear() {
+		var djangoData = {{ year_group_data |safe }};	
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Years');
+		data.addColumn('number', 'total count');
+		data.addRows(djangoData);
+		
+		var options = {
+			title: "Headaches spread over years",
+			width: 600,
+			height: 400,
+			legend: { position: "none" },
+			};
+		
+		var chart = new google.visualization.ColumnChart(document.getElementById("bar_div_years"));
+		chart.draw(data, options);
+		}
+		
+		function drawHistoChart() {
+		var djangoData = {{ between_data |safe }};	
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Index');
+		data.addColumn('number', 'Days betwee');
+		data.addRows(djangoData);
+		
+		var options = {
+			title: 'Histogram of headache time between frequency',
+			width: 600,
+			height: 400,
+		   legend: { position: 'none' },
+		   
+		   histogram: {
+			bucketSize: 1,
+			 minValue: 1,
+			 maxValue: 40
+			}
+			};
+		
+		var chart = new google.visualization.Histogram(document.getElementById('histo_div'));
+		chart.draw(data, options);
+		}
+		
+		
+		</script>
+	</head>
+<body>
+	<div class="page-header">
+		{% if user.is_authenticated %}
+		<a href="{% url 'logout' %}" class="top-menu">logout {{ user.get_username }}</a>
+		{% else %}
+		<a href="{% url 'login' %}" class="top-menu">Login </a>
+		{% endif %}
+		<h1><a href="/">Roland Health Hub</a></h1>
+	</div>
+	
+		<div class="container">
+		
+		<table >
+      		<tr>
+        		<td><div id="bar_div_day" style="border: 1px solid #ccc"></div></td>
+        		<td><div id="bar_div_months" style="border: 1px solid #ccc"></div></td>
+        		
+      		</tr>
+      		<tr>
+      			<td><div id="bar_div_years" style="border: 1px solid #ccc"></div></td>
+      			<td><div id="histo_div" style="border: 1px solid #ccc"></div></td>
+        		
+      		</tr>
+   		 </table>
+		
+  	</div>
+			
+</body>
+</html>
+	

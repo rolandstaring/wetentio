@@ -1,0 +1,183 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Roland Health Hub</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="{% static 'css/market.css' %}">
+  		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    	<script type="text/javascript">
+      		google.charts.load("current", {packages:['corechart']});
+      		google.charts.setOnLoadCallback(drawChart);
+      		google.charts.setOnLoadCallback(drawBarChartDay);
+			google.charts.setOnLoadCallback(drawBarChartMonth);
+			google.charts.setOnLoadCallback(drawBarChartYear);
+
+    	function drawChart() {
+    	
+      	var djangoData = {{ data_time |safe }};	
+      	var columnData = {{column_selected | safe}};
+      	
+      	var data = new google.visualization.DataTable();
+      	data.addColumn('number', 'datapoints');
+      	data.addColumn('number', columnData );
+      
+      
+      
+      	data.addRows(djangoData);
+      
+      	var options = {
+        	
+        	trendlines: {
+      			0: {
+      				 type: 'exponential',
+        			color: 'green',
+        			type: 'polynomial',
+            		 degree: 3,
+             		visibleInLegend: true,
+					}
+    					},
+        	
+        	chart: {
+          	  title: columnData,
+        		},
+        	   width: 750,
+        	   height: 400,
+        	   axes: {
+          			x: {
+            		0: {side: 'bottom'}
+          				}
+          		  }
+    
+      		};
+
+      	var chart = new google.visualization.LineChart(document.getElementById('line_div'));
+
+      	chart.draw(data,options);
+    	}
+    	
+    	function drawBarChartDay() {
+		var djangoData = {{ day_group_data |safe }};	
+		var columnData = {{column_selected | safe}};
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Days of the week');
+		data.addColumn('number', columnData);
+		data.addRows(djangoData);
+		
+		var options = {
+			
+			title: columnData,
+			width: 600,
+			height: 400,
+			legend: { position: "none" },
+
+			};
+		
+		var chart = new google.visualization.ColumnChart(document.getElementById("bar_div_day"));
+		chart.draw(data, options);
+		}
+		
+		function drawBarChartMonth() {
+		var djangoData = {{ month_group_data |safe }};
+		var columnData = {{column_selected | safe}};	
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Months');
+		data.addColumn('number', columnData );
+		data.addRows(djangoData);
+		
+		var options = {
+			title: columnData,
+			width: 600,
+			height: 400,
+			legend: { position: "none" },
+			};
+		
+		var chart = new google.visualization.ColumnChart(document.getElementById("bar_div_months"));
+		chart.draw(data, options);
+		}
+		
+		function drawBarChartYear() {
+		var djangoData = {{ year_group_data |safe }};	
+		var columnData = {{column_selected | safe}};
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Years');
+		data.addColumn('number', columnData);
+		data.addRows(djangoData);
+		
+		var options = {
+			title: columnData,
+			width: 600,
+			height: 400,
+			legend: { position: "none" },
+			};
+		
+		var chart = new google.visualization.ColumnChart(document.getElementById("bar_div_years"));
+		chart.draw(data, options);
+		}
+  		</script>
+	</head>
+<body>
+	<div class="page-header">
+    	{% if user.is_authenticated %}
+		<a href="{% url 'logout' %}" class="top-menu">logout {{ user.get_username }}</a>
+		{% else %}
+		<a href="{% url 'login' %}" class="top-menu">Login </a>
+		{% endif %}
+        <h1><a href="/">Roland Health Hub</a></h1>
+    </div>
+     <div class="content container">
+        <div class="row">
+        	<div class="col-md-8">
+        	
+        	<form action="{% url 'fitbit_data_select_result' %}" method="post">{% csrf_token %}
+ 				<h3> Selecteer variabele </h3> 
+ 				<select name="column">
+ 				{% for column in columns %}
+    			<option value="{{column}}" name="column">{{column}}</option>
+  				{% endfor %}
+  				</select>
+  				<table>
+ 				<tr>
+				<th>Begin</th> 
+				<th>Einde</th>
+				</tr>
+				<tr>
+				<td>
+ 				<input type="date" id="select_start" name="select_start"
+       			 value={{startdate}}
+      			 min={{startdate}} max={{enddate}}>
+      			 </td>
+      			 <td>
+ 				<input type="date" id="select_end" name="select_end"
+       			 value={{enddate}}
+      			 min={{startdate}} max={{enddate}}>
+      			 </td>
+      			 </td>
+      			 </table>
+  				<input type="submit">  
+			</form>
+		    
+			</div>
+        	<div class="col-md-4">
+        	 <h1>{{ column_selected }}</h1>
+        	 <p> Startdate: {{ startdate }} <br>
+        		 Enddate: {{ enddate }} <br>
+        		 Dagen: {{ datacount }} </p>
+        	</div>
+        	
+  			<table >
+      		<tr>
+        		<td><div id="bar_div_day" style="border: 1px solid #ccc"></div></td>
+        		<td><div id="bar_div_months" style="border: 1px solid #ccc"></div></td>
+        		
+      		</tr>
+      		<tr>
+      			<td><div id="bar_div_years" style="border: 1px solid #ccc"></div></td>
+      			<td><div id="line_div" style="border: 1px solid #ccc"></div></td>
+        		
+      		</tr>
+   		 </table>
+  			
+  			
+</body>
+</html>

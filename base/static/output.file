@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Date: Fri, 25 Jan 2019 14:01:03 GMT
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Vary: Origin,Accept-Encoding
+Cache-control: no-cache, private
+Content-Language: en-US
+X-Frame-Options: SAMEORIGIN
+X-Frame-Options: SAMEORIGIN
+Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+Server: cloudflare
+CF-RAY: 49eb4504d9a756e1-IAD
+
+{"access_token":"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdYWlkiLCJzdWIiOiI1MkpZUzQiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyaHIgcmFjdCByc2xlIiwiZXhwIjoxNTQ4NDUzNjYzLCJpYXQiOjE1NDg0MjQ4NjN9.5m2hedgnaCRxwJxWuIcoYhN63D77zQKGUDr1icBNSmM","expires_in":28800,"refresh_token":"1d01d4fc13a993932f431ac33253c1309281786a3c966c8cb50e138a3ddde870","scope":"heartrate activity sleep","token_type":"Bearer","user_id":"52JYS4"}

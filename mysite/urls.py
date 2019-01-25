@@ -19,6 +19,7 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('market.urls')),
-    path('',include('iot.urls')),
+    path('',include('base.urls')),
+    path('market/',include('market.urls')),
+    path('iot/',include('iot.urls')),
 ]
